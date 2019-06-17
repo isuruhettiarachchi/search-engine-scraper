@@ -1,6 +1,6 @@
 const express = require('express');
 
-const searchRouter = require('./routes/search');
+const searchRouter = require('./src/routes/search');
 
 const port = 3000;
 const app = express();
