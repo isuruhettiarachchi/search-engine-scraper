@@ -9,6 +9,8 @@ const scrapper = (sources, callback) => {
             sources: sources
         };
 
+        let scrapedData = [];
+
         const requestList = new Apify.RequestList(links);
     
         await requestList.initialize();
@@ -35,13 +37,20 @@ const scrapper = (sources, callback) => {
                 $('p').each((index, el) => {
                     para.push($(el).text());
                 });
-    
-                await Apify.pushData({
+
+                scrapedData.push({
                     url: request.url,
                     title,
                     h1texts,
                     para
                 });
+    
+                // await Apify.pushData({
+                //     url: request.url,
+                //     title,
+                //     h1texts,
+                //     para
+                // });
     
             },
     
@@ -49,11 +58,13 @@ const scrapper = (sources, callback) => {
                 console.log(`Request ${request.url} failed twice.`);
             },
         });
+
+        
     
         await crawler.run();
     
         console.log('Crawler finished.');
-        callback('finished');
+        callback(scrapedData);
     });
 }
 
