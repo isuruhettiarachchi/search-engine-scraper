@@ -26,31 +26,17 @@ const scrapper = (sources, callback) => {
                 console.log(`Processing ${request.url}...`);
     
                 const title = $('title').text();
-                const h1texts = [];
-                const para = [];
-                $('h1').each((index, el) => {
-                    h1texts.push({
-                        text: $(el).text(),
-                    });
-                });
+                const ptexts = [];
     
                 $('p').each((index, el) => {
-                    para.push($(el).text());
+                    ptexts.push($(el).text());
                 });
 
                 scrapedData.push({
                     url: request.url,
                     title,
-                    h1texts,
-                    para
+                    ptexts
                 });
-    
-                // await Apify.pushData({
-                //     url: request.url,
-                //     title,
-                //     h1texts,
-                //     para
-                // });
     
             },
     
